@@ -60,7 +60,7 @@ module.exports = (externalConfig) => {
   // SCRIPTS
   if (!config.scripts) {
     config.scripts = {
-      watchTasks: 'scripts',
+      watchTasks: ['scripts'],
       watchSource: `${config.source}/scripts/**/*.js`,
       source: [
         `${config.source}/scripts/**/*.js`,
