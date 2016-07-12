@@ -1,0 +1,51 @@
+{
+  "name": "@kolibridev/gulp-tasks",
+  "version": "0.1.0",
+  "description": "Collection of useful gulp tasks",
+  "license": "ISC",
+  "repository": "KolibriDev/gulp-tasks.git",
+  "homepage": "https://github.com/KolibriDev/gulp-tasks#readme",
+  "author": {
+    "name": "Kolibri",
+    "email": "hello@kolibri.is",
+    "url": "http://www.kolibri.is"
+  },
+  "contributors": [
+    "Benedikt D Valdez <benediktvaldez@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/KolibriDev/gulp-tasks/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.13.0",
+    "browserify": "^13.0.1",
+    "connect-history-api-fallback": "^1.2.0",
+    "eslint": "^3.0.1",
+    "eslint-config-icelandair": "^1.0.0",
+    "eslint-plugin-import": "^1.10.2",
+    "glob": "^7.0.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-pug": "^3.0.3",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.8",
+    "lodash": "^4.13.1",
+    "lodash.assign": "^4.0.9",
+    "merge-stream": "^1.0.0",
+    "run-sequence": "^1.2.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {}
+}
