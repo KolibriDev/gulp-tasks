@@ -6,8 +6,9 @@ const { each } = require('lodash')
 module.exports = (config) => {
   gulp.task('watch', () => {
     const watchStatic = () => {
-      each(config.static.assets, (source) => {
-        watch(source.source, source.tasks)
+      each(config.static.assets, (source, key) => {
+        gutil.log(`Watching ${key}`)
+        watch(source.source, () => gulp.start(source.tasks))
       })
     }
 
@@ -16,7 +17,7 @@ module.exports = (config) => {
         watchStatic()
       } else {
         gutil.log(`Watching ${item}`)
-        watch(config[item].watchSource, item)
+        watch(config[item].watchSource, () => gulp.start(config[item].watchTasks))
       }
     })
   })
