@@ -47,6 +47,9 @@ module.exports = (externalConfig) => {
         forms: false,
         scroll: false,
       },
+      files: [
+        config.target,
+      ],
       logLevel: 'info',
       logFileChanges: true,
       logConnections: false,
@@ -61,7 +64,10 @@ module.exports = (externalConfig) => {
   if (!config.scripts) {
     config.scripts = {
       watchTasks: ['scripts'],
-      watchSource: `${config.source}/scripts/**/*.js`,
+      watchSource: [
+        `${config.source}/scripts/**/*.js`,
+        'node_modules/@kolibridev/components',
+      ],
       source: [
         `${config.source}/scripts/**/*.js`,
       ],
@@ -79,7 +85,10 @@ module.exports = (externalConfig) => {
   if (!config.styles) {
     config.styles = {
       watchTasks: ['styles'],
-      watchSource: `${config.source}/styles/**/*.scss`,
+      watchSource: [
+        `${config.source}/styles/**/*.scss`,
+        'node_modules/@kolibridev/styles',
+      ],
       source: [
         `${config.source}/styles/**/*.scss`,
         `!${config.source}/styles/**/_*.scss`,
