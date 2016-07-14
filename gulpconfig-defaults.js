@@ -127,7 +127,7 @@ module.exports = (externalConfig) => {
       ],
       target: config.target,
       options: {
-        pretty: !config.minify,
+        pretty: false,
         basedir: config.source,
         locals: {
           env: { url: config.url },
