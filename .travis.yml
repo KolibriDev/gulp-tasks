@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - '6'
+
+cache:
+  directories:
+    - node_modules
+
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: benediktvaldez@gmail.com
+  api_key:
+    secure: rM8WXRnO8zDfNcOv7ZK8XN91ID1aCQ58JqHQlU+95MDXH6fc7LO3wlWtQ2/n3LLl/VqivwRveFpICfyMCmCePENn/vEwBLoMrF56FCOaaS0dpqyefgY2YUXZUMFkjC/ygR8x0HWxL8T6clSNkHI/v6cMU7bXxluU97QIkx2FuUuW358/vbgMQh6mlW44I9GE6G49AIz4mTPf30BgwDvh0vMovgyVXB5hdwXkmzwoPCKoeCkIJFVNtU0J34/4PILV/RuEcW3/xjYY87fdnl9lL/p0X/TLELbV+i8JhZDQe6JvuO05UiKacaYChRuL/krSGHONbjwUJHbYW8yOeU0fgastENrMDQXfJi0Vnd02X1Lx5DHwLnxe3ARIva8Ml/gR1eyz4DobL86GCv1WvHnBRe9vS6OzgAYW540dAPl4/WYQ+qApSNTniyFlk3TNWTjBn23odoZU/EVKgOSbB3Go19Fxi/EPFtVFSS28IiR8dahl2mMShINPgT4t0KXJr8ddwdsxYuf5s2w+J1CRrd8OoIYAYHmxDjrb9MgclSWtLeUX+85YgK4TeP3E1yNrSZL49jn0sty7R5NjGWO7WO99bGLnW9gcQFb+pR3ExBEJZt+XZ6ibkKjhsCHQsKY5tMGGl3mAd070ojsuKNVEJPShqLbQASBP+OZ7//OCYMI36pM=
+  on:
+    branch: master
+    tags: true
+    repo: KolibriDev/gulp-tasks
