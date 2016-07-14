@@ -140,28 +140,29 @@ module.exports = (externalConfig) => {
   // STATIC
   if (!config.static) {
     config.static = {
-      assets: {
-        root: {
-          tasks: ['static'],
-          source: `${config.source}/*.{html,txt,ico}`,
-          target: config.target,
-        },
-        images: {
-          tasks: ['static'],
-          source: [
-            `${config.source}/images/**/*.{png,gif,jpg,jpeg,ico,svg}`,
-            `${config.source}/views/**/*.svg`,
-          ],
-          target: `${config.target}/images`,
-        },
-        fonts: {
-          tasks: ['static'],
-          source: `${config.source}/fonts/**/*`,
-          target: `${config.target}/fonts`,
-        },
-      },
+      assets: {},
     }
   }
+  config.static.assets = Object.assign({
+    root: {
+      tasks: ['static'],
+      source: `${config.source}/*.{html,txt,ico}`,
+      target: config.target,
+    },
+    images: {
+      tasks: ['static'],
+      source: [
+        `${config.source}/images/**/*.{png,gif,jpg,jpeg,ico,svg}`,
+        `${config.source}/views/**/*.svg`,
+      ],
+      target: `${config.target}/images`,
+    },
+    fonts: {
+      tasks: ['static'],
+      source: `${config.source}/fonts/**/*`,
+      target: `${config.target}/fonts`,
+    },
+  }, config.static.assets)
 
   // WATCH
   if (!config.watch) {
