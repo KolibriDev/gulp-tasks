@@ -1,2 +1,4 @@
 ---
 extends: icelandair
+rules:
+  no-console: off
