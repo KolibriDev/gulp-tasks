@@ -144,6 +144,19 @@ module.exports = (externalConfig) => {
     }
   }
 
+  // CONTENTFUL
+  config.contentful = Object.assign({
+    client: {
+      space: process.env.CONTENTFUL_SPACE_ID,
+      accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+    },
+    srcset: [300, 768, 1024, 1200, 2048],
+    favicons: [256, 195, 152, 144, 128, 120, 114, 96, 72, 57, 48, 32, 16],
+    markdownContentTypes: [],
+    markdownFields: [],
+    imageFields: ['image'],
+  }, config.contentful)
+
   // STATIC
   if (!config.static) {
     config.static = {
