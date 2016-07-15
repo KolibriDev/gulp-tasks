@@ -29,6 +29,13 @@ module.exports = (externalConfig) => {
     assign(config, externalConfig)
   }
 
+  // BUILD
+  if (config.build) {
+    config.build = {
+      tasks: ['scripts', 'styles', 'views', 'static'],
+    }
+  }
+
   // SERVER
   if (!config.server) {
     // eslint-disable-next-line global-require
