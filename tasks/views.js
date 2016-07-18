@@ -15,10 +15,11 @@ module.exports = (config) => {
   // An alternative task that uses the Contentful API to inject data into the pug compile
   gulp.task('views-contentful', (done) => {
     contentful(config).then((data) => {
+      gutil.log('Content received!')
       config.views.options.locals.contentful = data
       gulp.src(config.views.source)
         .pipe(pug(config.views.options))
-        .on('error', errorHandler)
+          .on('error', errorHandler)
         .pipe(gulp.dest(config.views.target))
       done()
     }).catch((err) => {
