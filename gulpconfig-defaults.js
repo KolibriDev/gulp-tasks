@@ -122,27 +122,26 @@ module.exports = (externalConfig) => {
   }
 
   // VIEWS
-  if (!config.views) {
-    config.views = {
-      watchTasks: ['views'],
-      watchSource: [
-        `${config.source}/views/**/*.{jade,pug,svg}`,
-        `${config.source}/images/**/*.{svg}`,
-      ],
-      source: [
-        `${config.source}/views/**/*.{jade,pug}`,
-      ],
-      target: config.target,
-      options: {
-        pretty: false,
-        basedir: config.source,
-        locals: {
-          env: { url: config.url },
-          // inject content here
-        },
+  config.views = Object.assign({
+    watchTasks: ['views'],
+    watchSource: [
+      `${config.source}/views/**/*.{jade,pug,svg}`,
+      `${config.source}/images/**/*.{svg}`,
+    ],
+    source: [
+      `${config.source}/views/**/*.{jade,pug}`,
+      `!${config.source}/views/**/_*.{jade,pug}`,
+    ],
+    target: config.target,
+    options: {
+      pretty: false,
+      basedir: config.source,
+      locals: {
+        env: { url: config.url },
+        // inject content here
       },
-    }
-  }
+    },
+  }, config.views)
 
   // CONTENTFUL
   config.contentful = Object.assign({
