@@ -30,7 +30,7 @@ module.exports = (externalConfig) => {
   }
 
   // BUILD
-  if (config.build) {
+  if (!config.build) {
     config.build = {
       tasks: ['scripts', 'styles', 'views', 'static'],
     }
