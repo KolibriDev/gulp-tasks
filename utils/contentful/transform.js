@@ -2,6 +2,8 @@ const _ = require('lodash')
 const marked = require('marked')
 
 module.exports = (entries, config) => {
+  const ret = {}
+
   const makeSrcSet = (url) => {
     let srcSet = ''
 
@@ -35,8 +37,7 @@ module.exports = (entries, config) => {
     sizes: makeFavicons(image.fields.file.url),
   })
 
-  const ret = {}
-  entries.items.forEach((entry) => {
+  const processEntry = (entry) => {
     const obj = {
       id: entry.sys.id,
       revision: entry.sys.revision,
@@ -52,13 +53,24 @@ module.exports = (entries, config) => {
         obj.image = processImage(value)
       } else if (isMarkdown) {
         obj[field] = marked(value)
+      } else if (Array.isArray(value)) {
+        obj[field] = []
+        _.each(value, (subItem) => {
+          obj[field].push(processEntry(subItem))
+        })
+      } else if (value.hasOwnProperty('sys')) {
+        obj[field] = processEntry(value)
       } else {
         obj[field] = value
       }
     })
+    return obj
+  }
 
+  entries.items.forEach((entry) => {
     ret[entry.sys.contentType.sys.id] = ret[entry.sys.contentType.sys.id] || []
-    ret[entry.sys.contentType.sys.id].push(obj)
+    ret[entry.sys.contentType.sys.id].push(processEntry(entry))
   })
+
   return ret
 }
