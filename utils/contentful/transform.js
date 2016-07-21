@@ -50,7 +50,7 @@ module.exports = (entries, config) => {
       if (field === 'favicon') {
         obj.favicon = processFavicon(value)
       } else if (config.contentful.imageFields.indexOf(field) !== -1) {
-        obj.image = processImage(value)
+        obj[field] = processImage(value)
       } else if (isMarkdown) {
         obj[field] = marked(value)
       } else if (Array.isArray(value)) {
