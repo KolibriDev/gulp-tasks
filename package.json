@@ -45,6 +45,7 @@
     "lodash.assign": "^4.0.9",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",
+    "moment": "^2.14.1",
     "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"

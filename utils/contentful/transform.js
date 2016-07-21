@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const marked = require('marked')
+const moment = require('moment')
 
 module.exports = (entries, config) => {
   const ret = {}
@@ -27,6 +28,12 @@ module.exports = (entries, config) => {
     return sizes
   }
 
+  const processDateTime = (datetime) => moment(datetime).format('dddd, MMMM Do H:mm')
+
+  const processDate = (date) => moment(date).format('dddd, MMMM Do')
+
+  const processTime = (time) => moment(time).format('H:mm')
+
   const processImage = (image) => ({
     url: image.fields.file.url,
     srcset: makeSrcSet(image.fields.file.url),
@@ -49,6 +56,12 @@ module.exports = (entries, config) => {
 
       if (field === 'favicon') {
         obj.favicon = processFavicon(value)
+      } else if (config.contentful.datetimeFields.indexOf(field) !== -1) {
+        obj[field] = processDateTime(value)
+      } else if (config.contentful.dateFields.indexOf(field) !== -1) {
+        obj[field] = processDate(value)
+      } else if (config.contentful.timeFields.indexOf(field) !== -1) {
+        obj[field] = processTime(value)
       } else if (config.contentful.imageFields.indexOf(field) !== -1) {
         obj[field] = processImage(value)
       } else if (isMarkdown) {

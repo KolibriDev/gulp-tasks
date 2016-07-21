@@ -154,6 +154,9 @@ module.exports = (externalConfig) => {
     markdownContentTypes: [],
     markdownFields: [],
     imageFields: ['image'],
+    datetimeFields: ['datetime'],
+    dateFields: ['date'],
+    timeFields: ['time'],
   }, config.contentful)
 
   // STATIC
