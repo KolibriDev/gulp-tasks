@@ -45,6 +45,9 @@ module.exports = (entries, config) => {
   })
 
   const processEntry = (entry) => {
+    if (typeof entry === 'string') {
+      return entry
+    }
     const obj = {
       id: entry.sys.id,
       revision: entry.sys.revision,
