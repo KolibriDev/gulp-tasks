@@ -38,11 +38,20 @@ module.exports = (entries, config) => {
     return obj
   }
 
-  const processDateTime = (datetime) => moment(datetime).format('dddd, MMMM Do H:mm')
+  const processDateTime = (datetime) => {
+    const date = moment(datetime)
 
-  const processDate = (date) => moment(date).format('dddd, MMMM Do')
-
-  const processTime = (time) => moment(time).format('H:mm')
+    return {
+      month: date.format('MMMM'),
+      monthshort: date.format('MMM'),
+      day: date.format('D'),
+      dayo: date.format('Do'),
+      dayOfWeekShort: date.format('ddd'),
+      dayOfWeek: date.format('dddd'),
+      year: date.format('YYYY'),
+      time: date.format('H:mm'),
+    }
+  }
 
   const processImage = (image) => ({
     url: image.fields.file.url,
@@ -71,10 +80,6 @@ module.exports = (entries, config) => {
         obj.favicon = processFavicon(value)
       } else if (config.contentful.datetimeFields.indexOf(field) !== -1) {
         obj[field] = processDateTime(value)
-      } else if (config.contentful.dateFields.indexOf(field) !== -1) {
-        obj[field] = processDate(value)
-      } else if (config.contentful.timeFields.indexOf(field) !== -1) {
-        obj[field] = processTime(value)
       } else if (config.contentful.imageFields.indexOf(field) !== -1) {
         obj[field] = processImage(value)
       } else if (config.contentful.splitTagFields.indexOf(field) !== -1) {

@@ -155,9 +155,7 @@ module.exports = (externalConfig) => {
     markdownContentTypes: [],
     markdownFields: [],
     imageFields: ['image'],
-    datetimeFields: ['datetime'],
-    dateFields: ['date'],
-    timeFields: ['time'],
+    datetimeFields: ['datetime', 'date', 'time'],
     splitTagFields: ['socialMediaHandles'],
   }, config.contentful)
 
