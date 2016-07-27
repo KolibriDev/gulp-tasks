@@ -28,6 +28,16 @@ module.exports = (entries, config) => {
     return sizes
   }
 
+  const processSplitTags = (splitTags) => {
+    const obj = {}
+    _.each(splitTags, (tag) => {
+      const key = tag.split(':')[0]
+      const value = tag.split(':')[1]
+      obj[key] = value
+    })
+    return obj
+  }
+
   const processDateTime = (datetime) => moment(datetime).format('dddd, MMMM Do H:mm')
 
   const processDate = (date) => moment(date).format('dddd, MMMM Do')
@@ -67,6 +77,8 @@ module.exports = (entries, config) => {
         obj[field] = processTime(value)
       } else if (config.contentful.imageFields.indexOf(field) !== -1) {
         obj[field] = processImage(value)
+      } else if (config.contentful.splitTagFields.indexOf(field) !== -1) {
+        obj[field] = processSplitTags(value)
       } else if (isMarkdown) {
         obj[field] = marked(value)
       } else if (Array.isArray(value)) {
