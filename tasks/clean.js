@@ -2,5 +2,8 @@ const gulp = require('gulp')
 const del = require('del')
 
 module.exports = (cfg) => {
-  gulp.task('clean', () => del([cfg.target]))
+  const task = () => del([cfg.target])
+
+  gulp.task('clean', task)
+  return task
 }

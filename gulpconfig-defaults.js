@@ -141,6 +141,7 @@ module.exports = (externalConfig) => {
         // inject content here
       },
     },
+    content: false,
   }, config.views)
 
   // CONTENTFUL
