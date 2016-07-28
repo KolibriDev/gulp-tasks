@@ -107,7 +107,7 @@ module.exports = (externalConfig) => {
           'node_modules/@kolibridev/styles/node_modules',
           'node_modules',
         ],
-        outputStyle: config.minify ? 'compressed' : 'nested',
+        outputStyle: config.minify ? 'compressed' : 'expanded',
       },
       autoprefixer: {
         browsers: [
