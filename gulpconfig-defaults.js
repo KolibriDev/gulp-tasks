@@ -104,6 +104,7 @@ module.exports = (externalConfig) => {
       options: {
         includePaths: [
           `${config.source}/styles`,
+          'node_modules/@kolibridev/styles/node_modules',
           'node_modules',
         ],
         outputStyle: config.minify ? 'compressed' : 'nested',
