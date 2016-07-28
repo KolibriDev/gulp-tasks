@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const marked = require('marked')
 const moment = require('moment')
+const numeral = require('numeral')
 
 module.exports = (entries, config) => {
   const ret = {}
@@ -26,6 +27,20 @@ module.exports = (entries, config) => {
     })
 
     return sizes
+  }
+
+  const processNumberFields = (number) => {
+    numeral.language('is', {
+      delimiters: {
+        thousands: '.',
+        decimal: ',',
+      },
+    })
+    numeral.language('is')
+
+    return {
+      is: (number < 999) ? number : numeral(number).format('0,0'),
+    }
   }
 
   const processSplitTags = (splitTags) => {
@@ -84,6 +99,8 @@ module.exports = (entries, config) => {
         obj[field] = processImage(value)
       } else if (config.contentful.splitTagFields.indexOf(field) !== -1) {
         obj[field] = processSplitTags(value)
+      } else if (config.contentful.numberFields.indexOf(field) !== -1) {
+        obj[field] = processNumberFields(value)
       } else if (isMarkdown) {
         obj[field] = marked(value)
       } else if (Array.isArray(value)) {

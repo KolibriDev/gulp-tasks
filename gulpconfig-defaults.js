@@ -157,6 +157,7 @@ module.exports = (externalConfig) => {
     imageFields: ['image'],
     datetimeFields: ['datetime', 'date', 'time'],
     splitTagFields: ['socialMediaHandles'],
+    numberFields: ['price'],
   }, config.contentful)
 
   // STATIC
