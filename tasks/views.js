@@ -2,9 +2,12 @@ const gulp = require('gulp')
 const gutil = require('gulp-util')
 const pug = require('gulp-pug')
 const errorHandler = require('../utils/error-handler')
+const utils = require('../utils/views')
 const contentful = require('@kolibridev/contentful')
 
 module.exports = (config) => {
+  config.views.options.locals.utils = utils
+
   const taskDefault = () => gulp.src(config.views.source)
     .pipe(pug(config.views.options))
     .on('error', errorHandler)
