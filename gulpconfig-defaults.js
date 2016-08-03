@@ -138,7 +138,11 @@ module.exports = (externalConfig) => {
       pretty: false,
       basedir: config.source,
       locals: {
-        env: { url: config.url },
+        env: {
+          version: config.version,
+          env: config.env,
+          url: config.url,
+        },
         // inject content here
       },
     },
