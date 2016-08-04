@@ -19,7 +19,7 @@ module.exports = (config) => {
       config.contentful.env = config.env
       contentful(config.contentful).then((data) => {
         gutil.log('Content received!')
-        config.views.options.locals.contentful = data
+        config.views.options.locals.contentful = config.contentful.parse(data)
         gulp.src(config.views.source)
         .pipe(pug(config.views.options))
         .on('error', errorHandler)
