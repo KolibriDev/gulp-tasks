@@ -8,14 +8,16 @@ const contentful = require('@kolibridev/contentful')
 module.exports = (config) => {
   config.views.options.locals.utils = utils
 
-  const taskDefault = () => gulp.src(config.views.source)
+  const tasks = {}
+
+  tasks.default = () => gulp.src(config.views.source)
     .pipe(pug(config.views.options))
     .on('error', errorHandler)
     .pipe(gulp.dest(config.views.target))
 
   // An alternative task that uses the Contentful API to inject data into the pug compile
-  const taskContent = (done) => {
-    if (config.views.content === 'contentful') {
+  tasks.content = (done) => {
+    if (config.views.task === 'contentful') {
       config.contentful.env = config.env
       contentful(config.contentful).then((data) => {
         gutil.log('Content received!')
@@ -31,11 +33,15 @@ module.exports = (config) => {
         done()
       })
     } else {
-      taskDefault(done)
+      tasks.default(done)
     }
   }
 
-  const task = config.views.content ? taskContent : taskDefault
+  let task = tasks.default
+  if (config.views.task && tasks.hasOwnProperty(config.views.task)) {
+    task = tasks[config.views.task]
+  }
+
   gulp.task('views', task)
   return task
 }

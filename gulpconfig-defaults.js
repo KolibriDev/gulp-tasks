@@ -143,10 +143,9 @@ module.exports = (externalConfig) => {
           env: config.env,
           url: config.url,
         },
-        // inject content here
       },
     },
-    content: false,
+    task: false,
   }, config.views)
 
   // CONTENTFUL
