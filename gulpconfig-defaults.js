@@ -73,7 +73,7 @@ module.exports = (externalConfig) => {
       watchTasks: ['scripts'],
       watchSource: [
         `${config.source}/scripts/**/*.js`,
-        'node_modules/@kolibridev/components',
+        'node_modules/@kolibridev/components/lib',
       ],
       source: [
         `${config.source}/scripts/**/*.js`,
@@ -94,7 +94,7 @@ module.exports = (externalConfig) => {
       watchTasks: ['styles'],
       watchSource: [
         `${config.source}/styles/**/*.scss`,
-        'node_modules/@kolibridev/styles',
+        'node_modules/@kolibridev/styles/src',
       ],
       source: [
         `${config.source}/styles/**/*.scss`,
