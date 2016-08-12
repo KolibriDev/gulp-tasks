@@ -29,12 +29,12 @@ module.exports = (externalConfig) => {
     assign(config, externalConfig)
   }
 
-  // BUILD
-  if (!config.build) {
-    config.build = {
-      tasks: ['scripts', 'styles', 'views', 'static'],
-    }
   }
+
+  // BUILD
+  config.build = Object.assign({
+    tasks: ['scripts', 'styles', 'views', 'static'],
+  }, config.build)
 
   // SERVER
   if (!config.server) {
