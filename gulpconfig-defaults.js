@@ -9,6 +9,7 @@ const config = {
   minify: false,
   debug: true,
   url: 'https://dev.kolibri.is',
+  preset: 'website',
 }
 
 const envs = {
@@ -29,6 +30,21 @@ module.exports = (externalConfig) => {
     assign(config, externalConfig)
   }
 
+  const presets = {
+    email: {
+      build: {
+        tasks: ['styles', 'views', 'static'],
+      },
+    },
+    website: {
+      build: {
+        tasks: ['scripts', 'styles', 'views', 'static'],
+      },
+    },
+  }
+
+  if (config.preset && presets.hasOwnProperty(config.preset)) {
+    assign(config, presets[config.preset])
   }
 
   // BUILD
