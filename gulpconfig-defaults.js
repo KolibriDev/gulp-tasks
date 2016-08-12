@@ -161,7 +161,7 @@ module.exports = (externalConfig) => {
         },
       },
     },
-    task: false,
+    task: 'default',
   }, config.views)
 
   // CONTENTFUL
