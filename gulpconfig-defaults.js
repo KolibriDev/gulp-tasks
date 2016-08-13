@@ -57,6 +57,16 @@ module.exports = (externalConfig) => {
       build: {
         tasks: ['styles', 'views', 'static'],
       },
+      views: {
+        inlineCss: {
+          applyStyleTags: false,
+          removeStyleTags: false,
+          applyLinkTags: true,
+          removeLinkTags: true,
+          url: `file://${config.target}/`,
+        },
+        task: 'email',
+      },
     },
     website: {
       build: {
