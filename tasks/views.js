@@ -29,7 +29,7 @@ module.exports = (config) => {
     return gulp.src(config.views.source)
       .pipe(pug(config.views.options))
       .on('error', errorHandler)
-      .pipe(replace('$path.to', `${config.url}/`))
+      .pipe(replace('$path.to', `${config.url}`))
       .pipe(inlineCss(config.views.inlineCss))
       .pipe(header(banner, { obj: config }))
       .pipe(gulp.dest(config.views.target))
