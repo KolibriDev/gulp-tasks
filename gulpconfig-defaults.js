@@ -1,4 +1,3 @@
-const gutil = require('gulp-util')
 const assign = require('lodash.assign')
 const pkg = require('./package.json')
 
@@ -8,12 +7,24 @@ const config = {
   target: './dist',
   minify: false,
   debug: true,
-  url: 'https://dev.kolibri.is',
   preset: 'website',
 }
 
 const envs = {
-  prod: {
+  local: {
+    env: 'local',
+    url: 'http://localhost',
+  },
+  test: {
+    env: 'test',
+  },
+  staging: {
+    env: 'staging',
+    minify: true,
+    debug: false,
+    url: 'https://dev.kolibri.is',
+  },
+  production: {
     minify: true,
     debug: false,
     url: 'https://www.kolibri.is',
@@ -21,7 +32,18 @@ const envs = {
 }
 
 // Extend with environment specific config
-const env = gutil.env.env || (gutil.env.prod ? 'prod' : 'dev')
+let env = ''
+if (process.env.CI && process.env.CI.toString() === 'true') {
+  if (process.env.TRAVIS_BRANCH === 'master') {
+    env = 'production'
+  } else if (process.env.TRAVIS_BRANCH === 'develop') {
+    env = 'staging'
+  } else {
+    env = 'test'
+  }
+} else {
+  env = process.env.ENVIRONMENT || 'local'
+}
 assign(config, envs[env])
 
 // EXPORT
