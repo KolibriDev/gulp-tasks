@@ -1,5 +1,5 @@
 const gulp = require('gulp')
-const gutil = require('gulp-util')
+const gif = require('gulp-if')
 const eslint = require('gulp-eslint')
 const browserify = require('browserify')
 const babelify = require('babelify')
@@ -21,7 +21,7 @@ module.exports = function (config) {
     .on('error', errorHandler)
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(config.minify ? uglify({ preserveComments: config.scripts.preserveComments }) : gutil.noop())
+    .pipe(gif(config.minify, uglify(config.scripts.uglify)))
     .pipe(gulp.dest(config.scripts.target))
 
   gulp.task('lint-scripts', lintTask)

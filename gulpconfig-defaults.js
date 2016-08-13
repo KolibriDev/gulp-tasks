@@ -99,8 +99,10 @@ module.exports = (externalConfig) => {
         entries: [`${config.source}/scripts/main.js`],
         debug: config.debug,
       },
-      // all|license|function|some – https://github.com/terinjokes/gulp-uglify#options
-      preserveComments: '',
+      uglify: {
+        // all|license|function|some – https://github.com/terinjokes/gulp-uglify#options
+        preserveComments: '',
+      },
     }
   }
 
