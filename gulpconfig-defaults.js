@@ -58,6 +58,12 @@ module.exports = (externalConfig) => {
         tasks: ['styles', 'views', 'static'],
       },
       views: {
+        watchSource: [
+          `${config.source}/views/**/*.{jade,pug,svg}`,
+          `${config.source}/images/**/*.{svg}`,
+          `${config.source}/styles/**/*.css`,
+          `${config.target}/styles/**/*.scss`,
+        ],
         inlineCss: {
           applyStyleTags: false,
           removeStyleTags: false,
