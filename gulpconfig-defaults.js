@@ -1,7 +1,7 @@
-const assign = require('lodash.assign')
+const _ = require('lodash')
 const pkg = require('./package.json')
 
-const config = {
+let config = {
   version: pkg.version,
   source: './src',
   target: './dist',
@@ -44,12 +44,12 @@ if (process.env.CI && process.env.CI.toString() === 'true') {
 } else {
   env = process.env.ENVIRONMENT || 'local'
 }
-assign(config, envs[env])
+_.assign(config, envs[env])
 
 // EXPORT
 module.exports = (externalConfig) => {
   if (externalConfig) {
-    assign(config, externalConfig)
+    _.assign(config, externalConfig)
   }
 
   const presets = {
@@ -76,7 +76,7 @@ module.exports = (externalConfig) => {
   }
 
   if (config.preset && presets.hasOwnProperty(config.preset)) {
-    assign(config, presets[config.preset])
+    _.assign(config, presets[config.preset])
   }
 
   // BUILD
