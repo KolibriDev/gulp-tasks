@@ -62,7 +62,7 @@ module.exports = (externalConfig) => {
           `${config.source}/views/**/*.{jade,pug,svg}`,
           `${config.source}/images/**/*.{svg}`,
           `${config.source}/styles/**/*.css`,
-          `${config.target}/styles/**/*.scss`,
+          `${config.target}/styles/**/*.css`,
         ],
         inlineCss: {
           applyStyleTags: false,
