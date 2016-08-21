@@ -36,25 +36,21 @@ module.exports = (config) => {
   }
 
   // An alternative task that uses the Contentful API to inject data into the pug compile
-  tasks.content = (done) => {
-    if (config.views.task === 'contentful') {
-      config.contentful.env = config.env
-      contentful(config.contentful).then((data) => {
-        gutil.log('Content received!')
-        config.views.options.locals.contentful = config.contentful.parse(data)
-        gulp.src(config.views.source)
-        .pipe(pug(config.views.options))
-        .on('error', errorHandler)
-        .pipe(gulp.dest(config.views.target))
-        done()
-      }).catch((err) => {
-        gutil.log('Content failed!')
-        console.log(err)
-        done()
-      })
-    } else {
-      tasks.default(done)
-    }
+  tasks.contentful = (done) => {
+    config.contentful.env = config.env
+    contentful(config.contentful).then((data) => {
+      gutil.log('Content received!')
+      config.views.options.locals.contentful = config.contentful.parse(data)
+      gulp.src(config.views.source)
+      .pipe(pug(config.views.options))
+      .on('error', errorHandler)
+      .pipe(gulp.dest(config.views.target))
+      done()
+    }).catch((err) => {
+      gutil.log('Content failed!')
+      console.log(err)
+      done()
+    })
   }
 
   let task = tasks.default
