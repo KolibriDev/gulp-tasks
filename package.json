@@ -1,6 +1,6 @@
 {
   "name": "@kolibridev/gulp-tasks",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Collection of useful gulp tasks",
   "license": "ISC",
   "repository": "KolibriDev/gulp-tasks.git",
