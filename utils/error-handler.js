@@ -7,7 +7,7 @@ const handler = function (error) {
   notify.onError(error).apply(this, arguments)
   gutil.log(gutil.colors.red(`Error (${error.plugin}): ${error.message}`))
   gutil.log(gutil.colors.red(error.toString()))
-  this.emit('end')
+  this.emit('error')
 }
 
 handler.plumb = () => plumber({ errorHandler: handler })
