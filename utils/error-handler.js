@@ -3,10 +3,12 @@ const plumber = require('gulp-plumber')
 const gutil = require('gulp-util')
 
 const handler = function (error) {
-  // eslint-disable-next-line prefer-rest-params
-  notify.onError(error).apply(this, arguments)
-  gutil.log(gutil.colors.red(`Error (${error.plugin}): ${error.message}`))
-  gutil.log(gutil.colors.red(error.toString()))
+  if (error) {
+    // eslint-disable-next-line prefer-rest-params
+    notify.onError(error).apply(this, arguments)
+    gutil.log(gutil.colors.red(`Error (${error.plugin}): ${error.message}`))
+    gutil.log(gutil.colors.red(error.toString()))
+  }
   this.emit('error')
 }
 
