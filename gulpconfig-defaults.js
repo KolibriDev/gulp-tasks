@@ -212,7 +212,7 @@ module.exports = (externalConfig) => {
     datetimeFields: ['datetime', 'date', 'time'],
     splitTagFields: ['socialMediaHandles'],
     numberFields: ['price'],
-    parse: (data) => data,
+    parse: config.contentful.parse || ((data) => data),
   }, config.contentful)
 
   // STATIC
