@@ -1,7 +1,7 @@
-const _ = require('lodash')
+const assign = require('deep-assign')
 const pkg = require('./package.json')
 
-let config = {
+const config = {
   version: pkg.version,
   source: './src',
   target: './dist',
@@ -44,12 +44,12 @@ if (process.env.CI && process.env.CI.toString() === 'true') {
 } else {
   env = process.env.ENVIRONMENT || 'local'
 }
-_.assign(config, envs[env])
+assign(config, envs[env])
 
 // EXPORT
 module.exports = (externalConfig) => {
   if (externalConfig) {
-    _.assign(config, externalConfig)
+    assign(config, externalConfig)
   }
 
   const presets = {
@@ -82,104 +82,98 @@ module.exports = (externalConfig) => {
   }
 
   if (config.preset && presets.hasOwnProperty(config.preset)) {
-    _.assign(config, presets[config.preset])
+    assign(config, presets[config.preset])
   }
 
   // BUILD
-  config.build = Object.assign({
+  config.build = assign({
     tasks: ['scripts', 'styles', 'views', 'static'],
   }, config.build)
 
   // SERVER
-  if (!config.server) {
-    // eslint-disable-next-line global-require
-    const historyApiFallback = require('connect-history-api-fallback')
+  // eslint-disable-next-line global-require
+  const historyApiFallback = require('connect-history-api-fallback')
 
-    config.server = {
-      port: 3000,
-      server: {
-        baseDir: config.target,
-      },
-      ui: {
-        port: 3010,
-      },
-      ghostMode: {
-        clicks: false,
-        forms: false,
-        scroll: false,
-      },
-      files: [
-        config.target,
-      ],
-      logLevel: 'info',
-      logFileChanges: true,
-      logConnections: false,
-      logPrefix: '-server-',
-      notify: false,
-      open: false,
-      middleware: [historyApiFallback()],
-    }
-  }
+  config.server = assign({
+    port: 3000,
+    server: {
+      baseDir: config.target,
+    },
+    ui: {
+      port: 3010,
+    },
+    ghostMode: {
+      clicks: false,
+      forms: false,
+      scroll: false,
+    },
+    files: [
+      config.target,
+    ],
+    logLevel: 'info',
+    logFileChanges: true,
+    logConnections: false,
+    logPrefix: '-server-',
+    notify: false,
+    open: false,
+    middleware: [historyApiFallback()],
+  }, config.server)
 
   // SCRIPTS
-  if (!config.scripts) {
-    config.scripts = {
-      watchTasks: ['scripts'],
-      watchSource: [
-        `${config.source}/scripts/**/*.js`,
-        'node_modules/@kolibridev/components/lib',
-      ],
-      source: [
-        `${config.source}/scripts/**/*.js`,
-      ],
-      target: `${config.target}/scripts`,
-      browserify: {
-        entries: [`${config.source}/scripts/main.js`],
-        debug: config.debug,
-      },
-      uglify: {
-        // all|license|function|some – https://github.com/terinjokes/gulp-uglify#options
-        preserveComments: '',
-      },
-    }
-  }
+  config.scripts = assign({
+    watchTasks: ['scripts'],
+    watchSource: [
+      `${config.source}/scripts/**/*.js`,
+      'node_modules/@kolibridev/components/lib',
+    ],
+    source: [
+      `${config.source}/scripts/**/*.js`,
+    ],
+    target: `${config.target}/scripts`,
+    browserify: {
+      entries: [`${config.source}/scripts/main.js`],
+      debug: config.debug,
+    },
+    uglify: {
+      // all|license|function|some – https://github.com/terinjokes/gulp-uglify#options
+      preserveComments: '',
+    },
+  })
 
   // STYLES
-  if (!config.styles) {
-    config.styles = {
-      watchTasks: ['styles'],
-      watchSource: [
-        `${config.source}/styles/**/*.scss`,
-        'node_modules/@kolibridev/styles/src',
+  config.styles = assign({
+    watchTasks: ['styles'],
+    watchSource: [
+      `${config.source}/styles/**/*.scss`,
+      'node_modules/@kolibridev/styles/src',
+    ],
+    source: [
+      `${config.source}/styles/**/*.scss`,
+      `!${config.source}/styles/**/_*.scss`,
+    ],
+    target: `${config.target}/styles`,
+    options: {
+      includePaths: [
+        `${config.source}/styles`,
+        'node_modules/@kolibridev/styles/node_modules',
+        'node_modules',
       ],
-      source: [
-        `${config.source}/styles/**/*.scss`,
-        `!${config.source}/styles/**/_*.scss`,
+      outputStyle: config.minify ? 'compressed' : 'expanded',
+    },
+    autoprefixer: {
+      browsers: [
+        'ie >= 10',
+        '> 1%',
+        'last 2 versions',
+        'Firefox ESR',
+        'Opera 12.1',
       ],
-      target: `${config.target}/styles`,
-      options: {
-        includePaths: [
-          `${config.source}/styles`,
-          'node_modules/@kolibridev/styles/node_modules',
-          'node_modules',
-        ],
-        outputStyle: config.minify ? 'compressed' : 'expanded',
-      },
-      autoprefixer: {
-        browsers: [
-          'ie >= 10',
-          '> 1%',
-          'last 2 versions',
-          'Firefox ESR',
-          'Opera 12.1',
-        ],
-        cascade: false,
-      },
-    }
-  }
+      cascade: false,
+    },
+  })
 
   // VIEWS
-  config.views = Object.assign({
+  config.views = assign({
     watchTasks: ['views'],
     watchSource: [
       `${config.source}/views/**/*.{jade,pug,svg}`,
@@ -205,7 +199,7 @@ module.exports = (externalConfig) => {
   }, config.views)
 
   // CONTENTFUL
-  config.contentful = Object.assign({
+  config.contentful = assign({
     client: {
       space: process.env.CONTENTFUL_SPACE_ID,
       accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
@@ -222,12 +216,7 @@ module.exports = (externalConfig) => {
   }, config.contentful)
 
   // STATIC
-  if (!config.static) {
-    config.static = {
-      assets: {},
-    }
-  }
-  config.static.assets = Object.assign({
+  config.static = assign({
     root: {
       tasks: ['static'],
       source: `${config.source}/*.{html,txt,ico}`,
@@ -246,7 +235,7 @@ module.exports = (externalConfig) => {
       source: `${config.source}/fonts/**/*`,
       target: `${config.target}/fonts`,
     },
-  }, config.static.assets)
+  }, config.static)
 
   // WATCH
   if (!config.watch) {
