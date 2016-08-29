@@ -6,6 +6,15 @@ cache:
   directories:
     - node_modules
 
+before_cache:
+  - rm -rf node_modules/@kolibridev
+
+before_install:
+  - printf "//registry.npmjs.org/:_authToken=${NPM_TOKEN}\n" >> .npmrc
+
+install:
+  - npm update && npm install --loglevel=error --no-progress
+
 notifications:
   email: false
 
