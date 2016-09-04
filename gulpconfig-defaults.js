@@ -10,6 +10,8 @@ const config = {
   preset: 'website',
 }
 
+global.CI = process.env.CI && process.env.CI.toString() === 'true'
+
 const envs = {
   local: {
     env: 'local',
@@ -33,7 +35,7 @@ const envs = {
 
 // Extend with environment specific config
 let env = ''
-if (process.env.CI && process.env.CI.toString() === 'true') {
+if (global.CI) {
   if (process.env.TRAVIS_BRANCH === 'master') {
     env = 'production'
   } else if (process.env.TRAVIS_BRANCH === 'develop') {

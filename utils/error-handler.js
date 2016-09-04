@@ -9,7 +9,7 @@ const handler = function (error) {
     gutil.log(gutil.colors.red(`Error (${error.plugin}): ${error.message}`))
     gutil.log(gutil.colors.red(error.toString()))
   }
-  this.emit('error')
+  this.emit(global.CI ? 'error' : 'end')
 }
 
 handler.plumb = () => plumber({ errorHandler: handler })
