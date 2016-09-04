@@ -212,6 +212,7 @@ module.exports = (externalConfig) => {
     markdownFields: [],
     imageFields: ['image'],
     datetimeFields: ['datetime', 'date', 'time'],
+    datetimeEndFields: ['datetime', 'date', 'time'],
     splitTagFields: ['socialMediaHandles'],
     numberFields: ['price'],
     parse: config.contentful.parse || ((data) => data),
